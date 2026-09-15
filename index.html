@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#eaf0f2">
-<title>Job tracker</title>
+<title>MFM Job Hunt Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@85..100,400..700&display=swap" rel="stylesheet">
@@ -103,7 +103,7 @@ select.plain { border: 1px solid var(--line); background: var(--surface); border
 .tag { font-size: 12px; background: var(--bg); color: #33434c; border-radius: 10px; padding: 1px 8px; }
 .due { color: var(--amber); font-weight: 600; }
 .due.over { color: var(--red); }
-.legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin: -2px 0 10px 2px; }
+.legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin: 4px 0 10px 2px; align-items: center; }
 .legend span { display: inline-flex; align-items: center; gap: 6px; }
 .legend span::before { content: ""; width: 4px; height: 14px; border-radius: 2px; background: var(--line); }
 .legend .top::before { background: var(--red); }
@@ -215,7 +215,7 @@ const STAGES = [
 ];
 const STAGE_LABEL = Object.fromEntries(STAGES.map(s => [s.key, s.label]));
 const EMPTY = {
-  new: ["No new jobs right now", "Searches run at 7 AM, noon, and 5 PM. New matches land here."],
+  new: ["No new jobs right now", "Searches run at 6 AM and 5 PM. New matches land here."],
   saved: ["Nothing saved yet", "Save jobs you want to come back to."],
   applied: ["No applications yet", "Mark a job Applied and it moves here with today's date."],
   interviewing: ["No interviews yet", "Move a job here from Applied when you hear back."],
@@ -223,7 +223,7 @@ const EMPTY = {
   passed: ["Nothing crossed off", "Jobs marked Not interested are kept here in case you change your mind."],
   closed: ["Nothing closed", "Use Closed for rejections or postings that were filled."],
 };
-const TIER_LABEL = { top: "MFM + fetal echo", strong: "MFM or fetal", possible: "OB or echo" };
+const TIER_LABEL = { top: "MFM + Fetal Echo", strong: "MFM Or Fetal", possible: "OB Or Echo" };
 const AREA_LABEL = { manhattan: "Manhattan", brooklyn: "Brooklyn", nj: "New Jersey" };
 
 /* ---------- storage (falls back to memory where localStorage is blocked) ---------- */
@@ -480,7 +480,7 @@ function renderTop() {
   return `
   ${state.demo ? `<div class="demo-note">You're looking at sample data. Nothing you do here is saved. <button class="linkish" data-act="leave-demo">Connect your repository</button></div>` : ""}
   <header class="top">
-    <div><h1>Job hunt</h1><div class="sub">MFM and fetal echo sonographer roles</div></div>
+    <div><h1>MFM Job Hunt Tracker</h1><div class="sub">MFM &amp; Fetal Echo Sonographer Roles</div></div>
     <div class="top-actions">
       <span id="sync" class="sync">${syncText}</span>
       ${state.view === "jobs"
@@ -510,12 +510,12 @@ function renderJobs() {
     <div class="seg" role="group" aria-label="Area">${areaBtn("all", "All areas")}${areaBtn("manhattan", "Manhattan")}${areaBtn("brooklyn", "Brooklyn")}${areaBtn("nj", "NJ")}${areaBtn("check", "Check location")}</div>
     <select class="plain" data-field="tier" aria-label="Match">
       <option value="all"${state.tier === "all" ? " selected" : ""}>All matches</option>
-      <option value="top"${state.tier === "top" ? " selected" : ""}>MFM + fetal echo</option>
-      <option value="strong"${state.tier === "strong" ? " selected" : ""}>MFM or fetal</option>
-      <option value="possible"${state.tier === "possible" ? " selected" : ""}>OB or echo</option>
+      <option value="top"${state.tier === "top" ? " selected" : ""}>MFM + Fetal Echo</option>
+      <option value="strong"${state.tier === "strong" ? " selected" : ""}>MFM Or Fetal</option>
+      <option value="possible"${state.tier === "possible" ? " selected" : ""}>OB Or Echo</option>
     </select>
   </div>
-  <div class="legend" aria-hidden="true"><span class="top">MFM + fetal echo</span><span class="strong">MFM or fetal</span><span class="possible">OB or echo</span></div>
+  <div class="legend" aria-hidden="true"><span class="top">MFM + Fetal Echo</span><span class="strong">MFM Or Fetal</span><span class="possible">OB Or Echo</span></div>
   <div id="list">${renderList()}</div>`;
 }
 function visibleJobs() {
