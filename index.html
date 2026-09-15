@@ -10,12 +10,12 @@
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wdth,wght@85..100,400..700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #eaf0f2;
-  --surface: #ffffff;
-  --ink: #1b2a33;
-  --muted: #5b6b75;
-  --faint: #8a979e;
-  --line: #d5dee2;
+  --bg: #f5f3f0;
+  --surface: #fdfcfb;
+  --ink: #1a1a1a;
+  --muted: #5a5550;
+  --faint: #9a918a;
+  --line: #e0d9d3;
   --red: #b3263a;       /* color Doppler: flow toward */
   --blue: #1f4f9c;      /* color Doppler: flow away */
   --teal: #1d6b5f;
@@ -58,10 +58,10 @@ a { color: var(--blue); }
 
 /* Pipeline: a caliper ruler across the stages */
 .pipeline { position: relative; display: grid; grid-template-columns: repeat(5, minmax(84px, 1fr)) 18px repeat(2, minmax(84px, 1fr));
-  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow-x: auto; margin-bottom: 16px; }
+  background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow-x: auto; margin-bottom: 18px; box-shadow: 0 1px 3px rgba(0,0,0,.04); }
 .stage { position: relative; border: 0; background: none; text-align: left; padding: 14px 14px 16px; }
 .stage + .stage::before { content: ""; position: absolute; left: 0; top: 18px; bottom: 18px; width: 1px; background: var(--line); }
-.stage .n { display: block; font-size: 28px; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums; color: var(--faint); }
+.stage .n { display: block; font-size: 28px; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; color: var(--faint); letter-spacing: -0.01em; }
 .stage .l { display: block; font-size: 13px; color: var(--muted); margin-top: 6px; white-space: nowrap; }
 .stage::after { content: ""; position: absolute; left: 14px; right: 14px; bottom: 0; height: 3px; border-radius: 2px 2px 0 0; background: transparent; }
 .stage[aria-pressed="true"] .n { color: var(--ink); }
@@ -75,14 +75,14 @@ a { color: var(--blue); }
 
 /* Filters */
 .filters { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 12px; }
-.search { flex: 1 1 220px; border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 8px 12px; min-width: 0; }
+.search { flex: 1 1 220px; border: 1px solid var(--line); background: #fff; border-radius: 8px; padding: 8px 12px; min-width: 0; box-shadow: inset 0 1px 2px rgba(0,0,0,.04); }
 .seg { display: inline-flex; background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 3px; flex-wrap: wrap; }
 .seg button { border: 0; background: none; border-radius: 6px; padding: 5px 10px; font-size: 13px; color: var(--muted); }
-.seg button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+.seg button[aria-pressed="true"] { background: #2d2420; color: #fff; }
 select.plain { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 7px 10px; font-size: 13px; }
 
 /* Job list */
-.list { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.list { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 1px 2px rgba(0,0,0,.03); }
 .job { position: relative; display: grid; grid-template-columns: 1fr auto; gap: 6px 16px; padding: 14px 16px 14px 20px; border-top: 1px solid var(--line); }
 .job:first-child { border-top: 0; }
 .job::before { content: ""; position: absolute; left: 0; top: 14px; bottom: 14px; width: 4px; border-radius: 0 3px 3px 0; background: var(--line); }
@@ -90,7 +90,7 @@ select.plain { border: 1px solid var(--line); background: var(--surface); border
 .job[data-tier="strong"]::before { background: var(--blue); }
 .job.flash { animation: flash 1.6s ease-out; }
 @keyframes flash { from { background: var(--amber-bg); } to { background: var(--surface); } }
-.job-title { font-size: 16px; font-weight: 600; line-height: 1.3; background: none; border: 0; padding: 0; text-align: left; }
+.job-title { font-size: 16px; font-weight: 650; line-height: 1.3; background: none; border: 0; padding: 0; text-align: left; color: var(--ink); }
 .job-title:hover { color: var(--blue); }
 .job.passed .job-title, .job.closed .job-title { text-decoration: line-through; text-decoration-color: var(--faint); color: var(--muted); }
 .job-sub { color: var(--muted); font-size: 14px; }
@@ -100,14 +100,14 @@ select.plain { border: 1px solid var(--line); background: var(--surface); border
 .salary { color: var(--teal); font-weight: 600; }
 .fresh { color: var(--red); font-weight: 600; }
 .tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
-.tag { font-size: 12px; background: var(--bg); color: #33434c; border-radius: 10px; padding: 1px 8px; }
+.tag { font-size: 12px; background: #ede9e4; color: #3d3530; border-radius: 10px; padding: 2px 9px; font-weight: 500; }
 .due { color: var(--amber); font-weight: 600; }
 .due.over { color: var(--red); }
-.legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--muted); margin: 4px 0 10px 2px; align-items: center; }
-.legend span { display: inline-flex; align-items: center; gap: 6px; }
-.legend span::before { content: ""; width: 4px; height: 14px; border-radius: 2px; background: var(--line); }
-.legend .top::before { background: var(--red); }
-.legend .strong::before { background: var(--blue); }
+.legend { display: flex; flex-direction: row; gap: 18px; font-size: 13px; color: var(--muted); margin: 6px 0 12px 0; }
+.legend span { display: flex; flex-direction: row; align-items: center; gap: 6px; white-space: nowrap; }
+.legend-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--line); flex: none; margin-right: 2px; }
+.legend .ltop .legend-dot { background: var(--red); }
+.legend .lstrong .legend-dot { background: var(--blue); }
 .actions { display: flex; gap: 6px; align-items: flex-start; flex-wrap: wrap; justify-content: flex-end; }
 .act { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 6px 10px; font-size: 13px; font-weight: 550; white-space: nowrap; }
 .act:hover { border-color: #b9c6cc; }
@@ -127,7 +127,7 @@ select.plain { border: 1px solid var(--line); background: var(--surface); border
 
 /* Settings */
 .panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 14px; }
-.panel h2 { font-size: 18px; margin: 0 0 4px; font-weight: 650; }
+.panel h2 { font-size: 18px; margin: 0 0 4px; font-weight: 700; letter-spacing: -0.01em; }
 .panel > p { margin: 0 0 14px; color: var(--muted); font-size: 14px; }
 .area { border-top: 1px solid var(--line); padding: 14px 0 6px; }
 .area:first-of-type { border-top: 0; padding-top: 4px; }
@@ -515,7 +515,7 @@ function renderJobs() {
       <option value="possible"${state.tier === "possible" ? " selected" : ""}>OB Or Echo</option>
     </select>
   </div>
-  <div class="legend" aria-hidden="true"><span class="top">MFM + Fetal Echo</span><span class="strong">MFM Or Fetal</span><span class="possible">OB Or Echo</span></div>
+  <div class="legend" aria-hidden="true"><span class="ltop"><span class="legend-dot"></span>MFM + Fetal Echo</span><span class="lstrong"><span class="legend-dot"></span>MFM Or Fetal</span><span class="lpossible"><span class="legend-dot"></span>OB Or Echo</span></div>
   <div id="list">${renderList()}</div>`;
 }
 function visibleJobs() {
