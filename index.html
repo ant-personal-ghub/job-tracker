@@ -93,6 +93,7 @@ select.plain { border: 1px solid var(--line); background: var(--surface); border
 .job::before { content: ""; position: absolute; left: 0; top: 14px; bottom: 14px; width: 4px; border-radius: 0 3px 3px 0; background: var(--line); }
 .job[data-tier="top"]::before { background: var(--red); }
 .job[data-tier="strong"]::before { background: var(--blue); }
+.job[data-tier="breast"]::before { background: var(--purple); }
 .job.flash { animation: flash 1.6s ease-out; }
 @keyframes flash { from { background: var(--amber-bg); } to { background: var(--surface); } }
 .job-title { font-size: 16px; font-weight: 650; line-height: 1.3; background: none; border: 0; padding: 0; text-align: left; color: var(--ink); }
@@ -113,6 +114,7 @@ select.plain { border: 1px solid var(--line); background: var(--surface); border
 .legend-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--line); flex: none; margin-right: 2px; }
 .legend .ltop .legend-dot { background: var(--red); }
 .legend .lstrong .legend-dot { background: var(--blue); }
+.legend .lbreast .legend-dot { background: var(--purple); }
 .actions { display: flex; gap: 6px; align-items: flex-start; flex-wrap: wrap; justify-content: flex-end; }
 .act { border: 1px solid var(--line); background: var(--surface); border-radius: 8px; padding: 6px 10px; font-size: 13px; font-weight: 550; white-space: nowrap; }
 .act:hover { border-color: #b9c6cc; }
@@ -227,6 +229,7 @@ const EMPTY = {
   offer: ["No offers yet", "This is where the good news goes."],
   passed: ["Nothing crossed off", "Jobs marked Not interested are kept here in case you change your mind."],
   closed: ["Nothing closed", "Use Closed for rejections or postings that were filled."],
+  breast: ["No breast sonography jobs", "Breast sonographer postings appear here."],
 };
 const TIER_LABEL = { top: "MFM + Fetal Echo", strong: "MFM Or Fetal", possible: "OB Or Echo" };
 const AREA_LABEL = { manhattan: "Manhattan", brooklyn: "Brooklyn", nj: "New Jersey" };
@@ -518,9 +521,10 @@ function renderJobs() {
       <option value="top"${state.tier === "top" ? " selected" : ""}>MFM + Fetal Echo</option>
       <option value="strong"${state.tier === "strong" ? " selected" : ""}>MFM Or Fetal</option>
       <option value="possible"${state.tier === "possible" ? " selected" : ""}>OB Or Echo</option>
+      <option value="breast"${state.tier === "breast" ? " selected" : ""}>Breast Sono</option>
     </select>
   </div>
-  <div class="legend" aria-hidden="true"><span class="ltop"><span class="legend-dot"></span>MFM + Fetal Echo</span><span class="lstrong"><span class="legend-dot"></span>MFM Or Fetal</span><span class="lpossible"><span class="legend-dot"></span>OB Or Echo</span></div>
+  <div class="legend" aria-hidden="true"><span class="ltop"><span class="legend-dot"></span>MFM + Fetal Echo</span><span class="lstrong"><span class="legend-dot"></span>MFM Or Fetal</span><span class="lpossible"><span class="legend-dot"></span>OB Or Echo</span><span class="lbreast"><span class="legend-dot"></span>Breast Sono</span></div>
   <div id="list">${renderList()}</div>`;
 }
 function visibleJobs() {
@@ -853,6 +857,7 @@ function enterDemo() {
     J("s5", { title: "Ultrasound Technologist, Perinatal", company: "Sample Medical Center", location: "Jersey City, NJ", area: "nj", zone: "Jersey City, NJ", tier: "strong", tags: ["MFM / Perinatal", "Full-time"], salary: "$48/hr", posted: d(9), first_seen: d(9), last_seen: d(1) }),
     J("s6", { title: "Senior Ultrasound Technologist, MFM", company: "Example Faculty Practice", location: "New York, NY", area: "manhattan", zone: "Manhattan, Murray Hill", tier: "strong", tags: ["MFM / Perinatal", "RDMS"], posted: d(12), first_seen: d(12), last_seen: d(3) }),
     J("s7", { title: "Diagnostic Sonographer", company: "Sample Imaging Group", location: "New York, NY", area: "manhattan", zone: "Manhattan, Chelsea", tier: "possible", tags: ["OB/GYN"], posted: d(11), first_seen: d(11), last_seen: d(6) }),
+    J("s8", { title: "Breast Sonographer", company: "Sample Women's Imaging", location: "New York, NY 10016", area: "manhattan", zone: "Manhattan, zip 10016", tier: "breast", tags: ["Breast sono", "RDMS", "Full-time"], salary: "$85k–$105k/yr", posted: d(2), first_seen: d(2) }),
   ].map(j => [j.id, j]));
   state.tracker = { manual: {}, items: {
     s5: { status: "applied", applied_on: ymd(6), follow_up: ymd(-2), notes: "Applied online. Recruiter is Dana, said they'd reach out within two weeks.", updated: d(6) },
